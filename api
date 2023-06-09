@@ -1,0 +1,87 @@
+---
+openapi: 3.0.2
+info:
+  title: Address Book API
+  version: 1.0.0
+  description: Address Book
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+paths:
+  /addresses:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Address'
+          description: List of addresses
+      summary: List Addresses
+    post:
+      requestBody:
+        description: Address information
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Address'
+        required: true
+      responses:
+        "201":
+          description: |
+            Address created
+  /addresses/{addressesid}:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+          description: Address
+      summary: Get an address
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Address'
+        required: true
+      responses:
+        "204":
+          description: Address updated
+      summary: Update an address
+    delete:
+      responses:
+        "204":
+          description: Delete address
+      summary: Delete an address
+    parameters:
+    - name: addressesid
+      description: The address id
+      schema:
+        type: string
+      in: path
+      required: true
+components:
+  schemas:
+    Address:
+      title: Root Type for Address
+      description: ""
+      type: object
+      properties:
+        id:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          description: zip code
+          type: string
+      example:
+        id: "111"
+        city: New York
+        state: NY
